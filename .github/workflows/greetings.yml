@@ -1,4 +1,4 @@
-name: Greetings
+name: Greetings from MERN Stack Team
 
 on: [pull_request_target, issues]
 
