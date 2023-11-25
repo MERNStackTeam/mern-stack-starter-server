@@ -1,8 +1,11 @@
 # IDE
 .idea
 
+# ENV
+.env
+
 # Dependency Modules
-../node_modules
+node_modules
 
 # App Packaged
 dist

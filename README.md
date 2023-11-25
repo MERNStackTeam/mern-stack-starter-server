@@ -1,4 +1,4 @@
-# MERN Starter Server (In Development)
+# OpenAI Service (In Development)
 
 ## Requirements
 
