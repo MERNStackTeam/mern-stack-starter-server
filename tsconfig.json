@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es6", // Set the ECMAScript target version for emitted JavaScript.
+    "module": "commonjs", // Specify module code generation (CommonJS, AMD, UMD, System, ES6, ESNext).
+    "strict": true, // Enable all strict type-checking options.
+    "esModuleInterop": true, // Emit additional import and export information for 'import * as'
+    "moduleResolution": "node", // Specify module resolution strategy (Node.js-style module resolution).
+    "outDir": "./dist", // Redirect output structure to the directory.
+    // Other commonly used options:
+    // "sourceMap": true, // Generate corresponding .map files.
+    // "strictNullChecks": true, // Enable strict null checks.
+    // "noImplicitAny": true, // Raise error on expressions and declarations with an implied 'any' type.
+    // "allowJs": true, // Allow JavaScript files to be compiled.
+    // "baseUrl": "./src", // Base directory to resolve non-relative module names.
+    // "paths": { "*": ["./types/*"] }, // Mapping module names to locations.
+  },
+  "include": [
+    "src/**/*" // Specify which files to include in compilation (using glob patterns).
+  ],
+  "exclude": [
+    "node_modules" // Specify which files/folders to exclude from compilation.
+  ]
+}
