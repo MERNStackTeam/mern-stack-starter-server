@@ -8,6 +8,9 @@ import { Request, Response } from 'express';
 import environment from './environment';
 import todoRoutes from './src/routes/todoRoutes';
 import userRoutes from './src/routes/userRoutes';
+import roleRoutes from './src/routes/roleRoutes';
+import userAssignRoutes from './src/routes/userAssignRoutes';
+import authRoutes from './src/routes/authRoutes';
 import './infra/mongodb/db'; // Import MongoDB connection
 
 const {PORT, ORIGIN} = environment;
@@ -28,6 +31,9 @@ app.get('/', (_req: Request, res: Response) => {
 
 app.use('/api', todoRoutes);
 app.use('/api', userRoutes);
+app.use('/api', roleRoutes);
+app.use('/api', userAssignRoutes);
+app.use('/api', authRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
