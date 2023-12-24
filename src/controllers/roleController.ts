@@ -43,8 +43,11 @@ export const updateRoles = async (req: Request, res: Response, next: NextFunctio
         // Convert the string ID to a valid ObjectId
         const objectId = new mongoose.Types.ObjectId(id);
 
-        const updatedRole = await Roles.findByIdAndUpdate(objectId, { role, updated_at }, { new: true });
-        if (!updatedRole) {
+        const updatedRole = await Roles.findByIdAndUpdate(
+            { _id: { $eq: objectId } }, // Using $eq for explicitness
+            { role, updated_at },
+            { new: true }
+        );        if (!updatedRole) {
             return res.status(404).json({ message: 'Role not found' });
         }
         res.json(updatedRole);

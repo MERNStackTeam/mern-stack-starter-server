@@ -14,7 +14,7 @@ export const getAllUserAssign = async (req: Request, res: Response) => {
 
     if (userId) {
         // If ID is provided, fetch a specific user by ID
-        const userAssignment = await UserAssign.findOne({ user: userId });
+        const userAssignment = await UserAssign.findOne({ user:{ $eq: userId }  });
 
         if (!userAssignment) {
             return res.status(404).json({ message: 'UserAssign not found' });
@@ -48,13 +48,16 @@ export const updateUserAssign = async (req: Request, res: Response, next: NextFu
         const { user, role } = req.body;
         const updated_at = Date.now();
 
-        // Perform validation if needed
-        if (!mongoose.isValidObjectId(id)) {
-            return res.status(400).json({ message: 'Invalid ID format' });
+        const isValidObjectId = mongoose.isValidObjectId(id);
+        if (!isValidObjectId) {
+        return res.status(400).json({ message: 'Invalid ID format' });
         }
 
+        // Convert the string ID to a valid ObjectId
+        const objectId = new mongoose.Types.ObjectId(id);
+
         const updatedUserAssign: UserAssignDocument | null = await UserAssign.findByIdAndUpdate(
-            id,
+            { _id: { $eq: objectId } },
             { user, role, updated_at },
             { new: true }
         );
