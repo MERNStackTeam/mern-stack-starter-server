@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import mongoose from 'mongoose';
 import UserAssign, { UserAssignDocument } from '../database/schemas/UserAssign';
 import { ErrorRequestHandler } from 'express';
 
@@ -48,6 +49,9 @@ export const updateUserAssign = async (req: Request, res: Response, next: NextFu
         const updated_at = Date.now();
 
         // Perform validation if needed
+        if (!mongoose.isValidObjectId(id)) {
+            return res.status(400).json({ message: 'Invalid ID format' });
+        }
 
         const updatedUserAssign: UserAssignDocument | null = await UserAssign.findByIdAndUpdate(
             id,

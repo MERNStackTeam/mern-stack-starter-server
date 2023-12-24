@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import Roles from '../database/schemas/Roles';
 import { ErrorRequestHandler } from 'express';
+import mongoose from 'mongoose';
+
 
 export const errorHandler: ErrorRequestHandler = (err, req, res, next: NextFunction) => {
     res.status(500).json({ message: (err as Error).message });
@@ -34,6 +36,10 @@ export const updateRoles = async (req: Request, res: Response, next: NextFunctio
         const updated_at = Date.now();
 
         // Perform validation if needed
+        if (!mongoose.isValidObjectId(id)) {
+            return res.status(400).json({ message: 'Invalid ID format' });
+        }
+
 
         const updatedRole = await Roles.findByIdAndUpdate(id, { role,updated_at}, { new: true });
         if (!updatedRole) {

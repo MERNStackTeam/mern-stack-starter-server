@@ -1,5 +1,6 @@
 import User from '../database/schemas/User';
 import {NextFunction, Request, Response} from "express";
+import mongoose from 'mongoose';
 import {errorHandler} from "./todoController"; // Import your User model
 
 // Example of using the User model to create a new user
@@ -27,6 +28,9 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
         console.log(updated_at)
         // Perform validation if needed
         console.log(req.body)
+        if (!mongoose.isValidObjectId(id)) {
+            return res.status(400).json({ message: 'Invalid ID format' });
+        }
         const updatedUser = await User.findByIdAndUpdate(id, { email,password,username,username_case,profile_pic,first_name,middle_name,
             last_name,bio,updated_at}, { new: true });
         console.log(updatedUser)
