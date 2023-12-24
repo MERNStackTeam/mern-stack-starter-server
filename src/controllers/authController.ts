@@ -15,7 +15,7 @@ export const registerUser = async (req: Request, res: Response,next: NextFunctio
       req.body.username = req.body.username.toLowerCase();
       console.log(req.body)
       const { username } = req.body;
-      const existingUser = await User.findOne({ username });
+      const existingUser = await User.findOne({ username :{ $eq: username }});
   
       if (existingUser) {
         res.status(400).json({ message: 'Username exists' });
