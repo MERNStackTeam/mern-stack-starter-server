@@ -34,7 +34,8 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
 
         // Convert the string ID to a valid ObjectId
         const objectId = new mongoose.Types.ObjectId(id);
-        const updatedUser = await User.findByIdAndUpdate( { _id: { $eq: objectId } }, { email,password,username,username_case,profile_pic,first_name,middle_name,
+        const updatedUser = await User.findByIdAndUpdate( { _id: { $eq: objectId } },
+             { email,password,username,username_case,profile_pic,first_name,middle_name,
             last_name,bio,updated_at}, { new: true });
         console.log(updatedUser)
         if (!updatedUser) {

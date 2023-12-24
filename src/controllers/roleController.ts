@@ -47,7 +47,8 @@ export const updateRoles = async (req: Request, res: Response, next: NextFunctio
             { _id: { $eq: objectId } }, // Using $eq for explicitness
             { role, updated_at },
             { new: true }
-        );        if (!updatedRole) {
+        );       
+        if (!updatedRole) {
             return res.status(404).json({ message: 'Role not found' });
         }
         res.json(updatedRole);

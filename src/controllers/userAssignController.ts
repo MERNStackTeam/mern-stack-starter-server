@@ -56,11 +56,13 @@ export const updateUserAssign = async (req: Request, res: Response, next: NextFu
         // Convert the string ID to a valid ObjectId
         const objectId = new mongoose.Types.ObjectId(id);
 
-        const updatedUserAssign: UserAssignDocument | null = await UserAssign.findByIdAndUpdate(
-            { _id: { $eq: objectId } },
+        const updatedUserAssign: UserAssignDocument | null = await UserAssign.findOneAndUpdate(
+            { _id: objectId },
             { user, role, updated_at },
             { new: true }
         );
+        
+
 
         if (!updatedUserAssign) {
             return res.status(404).json({ message: 'UserAssign not found' });
