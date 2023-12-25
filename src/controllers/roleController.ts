@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import Roles from '../database/schemas/Roles';
+import Roles, {RoleDocument} from '../database/schemas/Roles';
 import { ErrorRequestHandler } from 'express';
 import mongoose from 'mongoose';
 
@@ -43,9 +43,9 @@ export const updateRoles = async (req: Request, res: Response, next: NextFunctio
         // Convert the string ID to a valid ObjectId
         const objectId = new mongoose.Types.ObjectId(id);
 
-        const updatedRole = await Roles.findByIdAndUpdate(
-            { _id: objectId }, // Assuming objectId is a valid ObjectId
-            { $set: role, updated_at },
+        const updatedRole: RoleDocument | null = await Roles.findOneAndUpdate(
+                { _id: objectId }, // Assuming objectId is a valid ObjectId
+                { $set: role, updated_at },
             { new: true }
         );       
         if (!updatedRole) {

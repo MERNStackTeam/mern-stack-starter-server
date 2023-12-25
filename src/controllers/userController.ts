@@ -1,4 +1,4 @@
-import User from '../database/schemas/User';
+import User, { UserDocument } from '../database/schemas/User';
 import {NextFunction, Request, Response} from "express";
 import mongoose from 'mongoose';
 import {errorHandler} from "./todoController"; // Import your User model
@@ -32,11 +32,14 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
         return res.status(400).json({ message: 'Invalid ID format' });
         }
 
-        // Convert the string ID to a valid ObjectId
+       
+         // Convert the string ID to a valid ObjectId
         const objectId = new mongoose.Types.ObjectId(id);
-        const updatedUser = await User.findByIdAndUpdate( { _id: objectId }, // Assuming objectId is a valid ObjectId
-        { $set:email,password,username,username_case,profile_pic,first_name,middle_name,
-            last_name,bio,updated_at}, { new: true });
+
+        const updatedUser: UserDocument | null = await User.findOneAndUpdate(
+             { _id: objectId }, // Assuming objectId is a valid ObjectId
+             { $set:email,password,username,username_case,profile_pic,first_name,middle_name,
+                last_name,bio,updated_at}, { new: true });
         console.log(updatedUser)
         if (!updatedUser) {
             return res.status(404).json({ message: 'User not found' });
