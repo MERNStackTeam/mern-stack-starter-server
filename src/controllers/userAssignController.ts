@@ -57,10 +57,11 @@ export const updateUserAssign = async (req: Request, res: Response, next: NextFu
         const objectId = new mongoose.Types.ObjectId(id);
 
         const updatedUserAssign: UserAssignDocument | null = await UserAssign.findOneAndUpdate(
-            { _id: objectId },
-            { user, role, updated_at },
+            { _id: objectId }, // Assuming objectId is a valid ObjectId
+            { $set: { user, role, updated_at } },
             { new: true }
         );
+        
         
 
 
