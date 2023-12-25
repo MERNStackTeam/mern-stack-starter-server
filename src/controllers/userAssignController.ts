@@ -62,9 +62,6 @@ export const updateUserAssign = async (req: Request, res: Response, next: NextFu
             { new: true }
         );
         
-        
-
-
         if (!updatedUserAssign) {
             return res.status(404).json({ message: 'UserAssign not found' });
         }
