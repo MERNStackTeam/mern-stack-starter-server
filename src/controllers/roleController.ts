@@ -45,7 +45,7 @@ export const updateRoles = async (req: Request, res: Response, next: NextFunctio
 
         const updatedRole: RoleDocument | null = await Roles.findOneAndUpdate(
                 { _id: objectId }, // Assuming objectId is a valid ObjectId
-                { $set: role, updated_at },
+                { $set: {role, updated_at} },
             { new: true }
         );       
         if (!updatedRole) {

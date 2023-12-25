@@ -38,8 +38,8 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
 
         const updatedUser: UserDocument | null = await User.findOneAndUpdate(
              { _id: objectId }, // Assuming objectId is a valid ObjectId
-             { $set:email,password,username,username_case,profile_pic,first_name,middle_name,
-                last_name,bio,updated_at}, { new: true });
+             { $set:{email,password,username,username_case,profile_pic,first_name,middle_name,
+                last_name,bio,updated_at}}, { new: true });
         console.log(updatedUser)
         if (!updatedUser) {
             return res.status(404).json({ message: 'User not found' });
