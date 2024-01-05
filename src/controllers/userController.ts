@@ -1,6 +1,7 @@
 import User, { UserDocument } from '../database/schemas/User';
 import {NextFunction, Request, Response} from "express";
 import mongoose from 'mongoose';
+import validator from 'validator';
 import {errorHandler} from "./todoController"; // Import your User model
 
 // Example of using the User model to create a new user
@@ -93,23 +94,31 @@ export const getAllUsers = async (req: Request, res: Response) => {
 
 export const forgotpassword = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        
-        const {email,password } = req.body;
-        const updated_at = Date.now();
-        const validator = require('validator');
+        const { email, password } = req.body;
+
+        // Validate the email input
         if (!validator.isEmail(email)) {
-            console.error('Invalid email address');
-        } else {
-            const updatedUser = await User.findOneAndUpdate(
-                { email: email },
-                { $set: { password } },
-                { new: true }
-            );
+            return res.status(400).json({ message: 'Invalid email address' });
+        }
+
+        // Sanitize the email input (optional, but recommended)
+        const sanitizedEmail = validator.normalizeEmail(email);
+
+        // Update the user's password
+        const updatedUser = await User.findOneAndUpdate(
+            { email: sanitizedEmail },
+            { $set: { password, updated_at: Date.now() } },
+            { new: true }
+        );
+
         if (!updatedUser) {
             return res.status(404).json({ message: 'User not found' });
         }
+
+        // Respond with the updated user
         res.json(updatedUser);
-        }} catch (err) {
+    } catch (err) {
+        // Handle other errors
         errorHandler(err, req, res, next);
-        }
-    };
+    }
+};
