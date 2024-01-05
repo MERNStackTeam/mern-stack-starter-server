@@ -90,3 +90,21 @@ export const getAllUsers = async (req: Request, res: Response) => {
         return res.status(500).json({ message: err.message });
     }
 };
+
+export const forgotpassword = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        
+        const {email,password } = req.body;
+        const updated_at = Date.now();
+
+        const updatedUser: UserDocument | null = await User.findOneAndUpdate(
+             { email: email }, 
+             { $set:{password}}, { new: true });
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json(updatedUser);
+    } catch (err) {
+        errorHandler(err, req, res, next);
+    }
+};

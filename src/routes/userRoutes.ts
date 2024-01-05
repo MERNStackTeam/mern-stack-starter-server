@@ -16,4 +16,5 @@ router.use(limiter);
 router.post('/user', userController.createUser);
 router.get('/user', userController.getAllUsers);
 router.put('/user/:id', userController.updateUser);
+router.post('/forgotpassword',userController.forgotpassword);
 export default router;
