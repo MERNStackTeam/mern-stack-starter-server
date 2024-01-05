@@ -96,15 +96,20 @@ export const forgotpassword = async (req: Request, res: Response, next: NextFunc
         
         const {email,password } = req.body;
         const updated_at = Date.now();
-
-        const updatedUser: UserDocument | null = await User.findOneAndUpdate(
-             { email: email }, 
-             { $set:{password}}, { new: true });
+        const validator = require('validator');
+        if (!validator.isEmail(email)) {
+            console.error('Invalid email address');
+        } else {
+            const updatedUser = await User.findOneAndUpdate(
+                { email: email },
+                { $set: { password } },
+                { new: true }
+            );
         if (!updatedUser) {
             return res.status(404).json({ message: 'User not found' });
         }
         res.json(updatedUser);
-    } catch (err) {
+        }} catch (err) {
         errorHandler(err, req, res, next);
-    }
-};
+        }
+    };
