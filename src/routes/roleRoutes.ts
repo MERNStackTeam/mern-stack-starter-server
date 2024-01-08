@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import rateLimit from 'express-rate-limit';
-import * as userController from '../controllers/userController';
+import * as roleController from '../controllers/roleController';
+
 
 const router = Router();
-
 // Apply rate limiting middleware
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -13,8 +13,9 @@ const limiter = rateLimit({
   // Apply the rate limiter to all routes
 router.use(limiter);
 
-router.post('/user', userController.createUser);
-router.get('/user', userController.getAllUsers);
-router.put('/user/:id', userController.updateUser);
-router.post('/forgotpassword',userController.forgotpassword);
+router.get('/roles', roleController.getAllRoles);
+router.post('/roles', roleController.createRoles);
+router.put('/roles/:id', roleController.updateRoles);
+
+
 export default router;

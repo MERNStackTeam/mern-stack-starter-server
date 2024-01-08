@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import rateLimit from 'express-rate-limit';
-import * as userController from '../controllers/userController';
+import * as authController from '../controllers/authController';
 
 const router = Router();
 
@@ -13,8 +13,9 @@ const limiter = rateLimit({
   // Apply the rate limiter to all routes
 router.use(limiter);
 
-router.post('/user', userController.createUser);
-router.get('/user', userController.getAllUsers);
-router.put('/user/:id', userController.updateUser);
-router.post('/forgotpassword',userController.forgotpassword);
+router.post('/registerusers', authController.registerUser);
+//router.post('/userassign', authController.createUserAssign);
+//router.put('/userassign/:id', authController.updateUserAssign);
+
+
 export default router;
