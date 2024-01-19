@@ -1,21 +1,11 @@
-import { Router } from 'express';
-import rateLimit from 'express-rate-limit';
-import * as authController from '../controllers/authController';
+// authRoutes.ts
+import express from 'express';
+import authController from '../controllers/authController';
 
-const router = Router();
+const router = express.Router();
 
-// Apply rate limiting middleware
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // limit each IP to 100 requests per windowMs
-  });
-  
-  // Apply the rate limiter to all routes
-router.use(limiter);
-
-router.post('/registerusers', authController.registerUser);
-//router.post('/userassign', authController.createUserAssign);
-//router.put('/userassign/:id', authController.updateUserAssign);
-
+router.post('/register', authController);
+router.post('/login', authController);
+router.post('/refresh-token', authController);
 
 export default router;

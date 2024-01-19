@@ -19,6 +19,7 @@
     "morgan": "^1.10.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
+    "passport-local": "^1.0.0",
     "ts-node": "^10.4.0",
     "typescript": "^5.3.3",
     "validator": "^13.11.0"
@@ -30,6 +31,7 @@
     "@types/mongoose": "^5.11.97",
     "@types/passport": "^1.0.16",
     "@types/passport-jwt": "^4.0.0",
+    "@types/passport-local": "^1.0.38",
     "@types/validator": "^13.11.7"
   }
 }

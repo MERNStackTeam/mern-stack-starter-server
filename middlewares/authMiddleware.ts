@@ -1,4 +1,3 @@
-// authMiddleware.ts
 import { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
 
@@ -13,7 +12,7 @@ const isAuthenticated = (
     res: Response,
     next: NextFunction
 ) => {
-  passport.authenticate('jwt', { session: false }, (err: any, user: User) => {
+  passport.authenticate('jwt', { session: false }, (err: any, user: User | null) => {
     // Explicitly define the type of the 'err' and 'user' parameters
     if (err || !user) {
       return res.status(401).json({ message: 'Unauthorized' });
