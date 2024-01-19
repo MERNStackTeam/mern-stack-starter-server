@@ -2,7 +2,7 @@ import User, { UserDocument } from '../database/schemas/User';
 import {NextFunction, Request, Response} from "express";
 import mongoose from 'mongoose';
 import validator from 'validator';
-import {errorHandler} from "./todoController"; // Import your User model
+import {errorHandler} from "../handlers/errorHandler"; // Import your User model
 
 // Example of using the User model to create a new user
 export const createUser =  async (req: Request, res: Response, next: NextFunction) => {
