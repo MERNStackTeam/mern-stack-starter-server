@@ -1,0 +1,235 @@
+{
+	"info": {
+		"_postman_id": "b2665a20-bc82-4552-9633-384dad63649f",
+		"name": "Mern-Stack-Starter-Server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6787484"
+	},
+	"item": [
+		{
+			"name": "Server Running Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Registration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"jinto1729@gmail.com\",\n    \"username\":\"jinto1729\",\n    \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"jinto1729\",\n    \"password\":\"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"refreshToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWFhMDMxMjhkYmY5ODA3ZGI4MjFmNzkiLCJ1c2VybmFtZSI6ImppbnRvMTcyOSIsImlhdCI6MTcwNTY0Mzk5MSwiZXhwIjoxNzA2MjQ4NzkxfQ.XP489EUMmbIOU_tvFMsi60Pgt7aKhqutBub6K82AX_M\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/auth/refresh-token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"refresh-token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Todo's",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWFhMDMxMjhkYmY5ODA3ZGI4MjFmNzkiLCJ1c2VybmFtZSI6ImppbnRvMTcyOSIsImlhdCI6MTcwNTY0NjUzOSwiZXhwIjoxNzA1NjUwMTM5fQ.UtSb1El7JxMAYzG2kbSMhgi8_wVQTXy-FwdpWkfR_wY",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\":\"Todo 6\",\n    \"description\": \"Description of Todo 6\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/todos",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Todo's",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWFhMDMxMjhkYmY5ODA3ZGI4MjFmNzkiLCJ1c2VybmFtZSI6ImppbnRvMTcyOSIsImlhdCI6MTcwNTY0NDc4NSwiZXhwIjoxNzA1NjQ4Mzg1fQ.aMZC0PeHlrOuE6OZL1Hn3m0AlosnUJTHLIw7jNpZOYw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/todos",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Todo's",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\":\"Todo 1 - title updated\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/todos/65633038fa140550170ac1e2",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"todos",
+						"65633038fa140550170ac1e2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users - Data Grid",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWFhMDMxMjhkYmY5ODA3ZGI4MjFmNzkiLCJ1c2VybmFtZSI6ImppbnRvMTcyOSIsImlhdCI6MTcwNTY2MDA0OSwiZXhwIjoxNzA1NjYzNjQ5fQ.N-4kB5ZDg1O7wERjW_NVNAaMBQ5TXLcoFosJi3INGU4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/users/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
