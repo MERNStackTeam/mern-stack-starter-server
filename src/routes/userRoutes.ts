@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import rateLimit from 'express-rate-limit';
 import * as userController from '../controllers/userController';
+import * as userDatagridController from '../controllers/userDatagridController';
 
 const router = Router();
 
@@ -13,8 +14,10 @@ const limiter = rateLimit({
   // Apply the rate limiter to all routes
 router.use(limiter);
 
-router.post('/user', userController.createUser);
-router.get('/user', userController.getAllUsers);
-router.put('/user/:id', userController.updateUser);
-router.post('/forgotpassword',userController.forgotpassword);
+// router.post('/user', userController.createUser);
+// router.get('/user', userController.getAllUsers);
+// router.put('/user/:id', userController.updateUser);
+// router.post('/forgotpassword',userController.forgotpassword);
+router.get('/', userDatagridController.getUsers);
+
 export default router;

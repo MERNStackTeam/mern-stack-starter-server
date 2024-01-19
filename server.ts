@@ -7,7 +7,7 @@ import passport from 'passport';
 import {Strategy as JwtStrategy, ExtractJwt} from 'passport-jwt';
 import environment from './environment';
 import todoRoutes from './src/routes/todoRoutes';
-// import userRoutes from './src/routes/userRoutes';
+import userRoutes from './src/routes/userRoutes';
 import roleRoutes from './src/routes/roleRoutes';
 import userAssignRoutes from './src/routes/userAssignRoutes';
 import authRoutes from './src/routes/authRoutes';
@@ -54,7 +54,7 @@ app.use('/api/auth', authRoutes);
 
 // Apply the authentication middleware only to routes that require authentication
 app.use('/api/todos', isAuthenticated, todoRoutes);
-// app.use('/api/users', isAuthenticated, userRoutes);
+app.use('/api/users', isAuthenticated, userRoutes);
 app.use('/api/roles', isAuthenticated, roleRoutes);
 app.use('/api/user-assign', isAuthenticated, userAssignRoutes);
 
