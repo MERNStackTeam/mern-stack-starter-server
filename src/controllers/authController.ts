@@ -82,6 +82,11 @@ router.post('/refresh-token', async (req: Request, res: Response) => {
 router.post('/forgotpassword', async (req: Request, res: Response,next: NextFunction) => {
     try {
          const { username, password } = req.body;
+         const existingUser = await User.findOne({ username: username });
+        if (!existingUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
          const hashedPassword = await bcrypt.hash(password, 10);
          console.log(hashedPassword)
          // Update the user's password
