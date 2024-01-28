@@ -1,8 +1,9 @@
 import mongoose, { Schema, Document } from 'mongoose';
+import { UserDocument } from '../../models/User';
 
 // Define the UserAssign schema
 export interface UserAssignDocument extends Document {
-    user: mongoose.Types.ObjectId; // Reference to User model
+    user: mongoose.Types.ObjectId | UserDocument; // Reference to User model
     role: mongoose.Types.ObjectId; // Reference to Roles model
     created_at: Date;
     updated_at: Date;

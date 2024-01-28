@@ -16,8 +16,9 @@ router.use(limiter);
 
 // router.post('/user', userController.createUser);
 // router.get('/user', userController.getAllUsers);
-// router.put('/user/:id', userController.updateUser);
-// router.post('/forgotpassword',userController.forgotpassword);
+router.put('/:id', userController.updateUser);
+router.delete('/:id', userController.deleteUser);
+
 router.get('/', userDatagridController.getUsers);
 
 export default router;

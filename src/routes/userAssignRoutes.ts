@@ -13,9 +13,11 @@ const limiter = rateLimit({
   // Apply the rate limiter to all routes
 router.use(limiter);
 
-router.get('/userassign', userAssignController.getAllUserAssign);
-router.post('/userassign', userAssignController.createUserAssign);
-router.put('/userassign/:id', userAssignController.updateUserAssign);
+router.get('/', userAssignController.getAllUserAssign);
+router.post('/', userAssignController.createUserAssign);
+router.put('/:id', userAssignController.updateUserAssign);
+router.delete('/:id', userAssignController.deleteUserAssign);
+
 
 
 export default router;
