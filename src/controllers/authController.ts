@@ -95,7 +95,7 @@ router.post('/forgotpassword', async (req: Request, res: Response,next: NextFunc
          console.log(hashedPassword)
          // Update the user's password
         const updatedUser = await User.findOneAndUpdate(
-            { username: username },
+            { username: { $eq: username } },
              { $set: { password:hashedPassword, updated_at: Date.now() } },
              { new: true }
         );
