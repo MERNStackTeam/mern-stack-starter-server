@@ -79,47 +79,37 @@ router.post('/refresh-token', async (req: Request, res: Response) => {
     });
 });
 
-router.post('/forgotpassword', async (req: Request, res: Response, next: NextFunction) => {
+router.post('/forgotpassword', async (req: Request, res: Response,next: NextFunction) => {
     try {
-        const { username, password } = req.body;
-
-        // Validate the username
-        if (!isValidUsername(username)) {
-            return res.status(400).json({ message: 'Invalid username format' });
+         const { username, password } = req.body;
+         // Validate username
+        if (!username) {
+            return res.status(400).json({ message: 'Username is required' });
         }
 
-        // Check if the user exists
-        const existingUser = await User.findOne({ username: username });
-        if (!existingUser) {
-            return res.status(404).json({ message: 'User not found' });
+        // Validate password
+        if (!password) {
+            return res.status(400).json({ message: 'Password is required' });
         }
-
-        // Proceed with password update
-        const hashedPassword = await bcrypt.hash(password, 10);
-        console.log(hashedPassword);
-
-        // Update the user's password
+         const hashedPassword = await bcrypt.hash(password, 10);
+         console.log(hashedPassword)
+         // Update the user's password
         const updatedUser = await User.findOneAndUpdate(
             { username: username },
-            { $set: { password: hashedPassword, updated_at: Date.now() } },
-            { new: true }
+             { $set: { password:hashedPassword, updated_at: Date.now() } },
+             { new: true }
         );
-
-        // Respond with the updated user
-        res.json(updatedUser);
-    } catch (err) {
-        // Handle other errors
-        errorHandler(err, req, res, next);
-    }
-});
-
-// Function to validate username format
-function isValidUsername(username: string): boolean {
-    // Implement your validation logic here
-    // Example: Check if the username contains only alphanumeric characters
-    const alphanumericRegex = /^[a-zA-Z0-9]+$/;
-    return alphanumericRegex.test(username);
-}
-
+ 
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+         }
+ 
+         // Respond with the updated user
+         res.json(updatedUser);
+     } catch (err) {
+         // Handle other errors
+        errorHandler(err, req, res,next);
+     }
+ });
 
 export default router;
