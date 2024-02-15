@@ -11,6 +11,7 @@ import userRoutes from './src/routes/userRoutes';
 import roleRoutes from './src/routes/roleRoutes';
 import userAssignRoutes from './src/routes/userAssignRoutes';
 import authRoutes from './src/routes/authRoutes';
+import exportcsvRoutes from './src/routes/exportcsvRoutes';
 import './infra/mongodb/db'; // Import MongoDB connection
 import './src/config/passport-config'; // Import your Passport.js configuration file
 import isAuthenticated from './middlewares/authMiddleware'; // Import the authentication middleware
@@ -57,6 +58,8 @@ app.use('/api/todos', isAuthenticated, todoRoutes);
 app.use('/api/users', isAuthenticated, userRoutes);
 app.use('/api/roles', isAuthenticated, roleRoutes);
 app.use('/api/user-assign', isAuthenticated, userAssignRoutes);
+app.use('/api/export-csv', isAuthenticated, exportcsvRoutes);
+
 
 // Server start
 app.listen(PORT, () => {
