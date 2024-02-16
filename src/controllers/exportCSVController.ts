@@ -32,20 +32,28 @@ function writeToCSV(data: any[], headers?: string[]): string {
 router.post('/exportcsv', async (req: Request, res: Response) => {
     try {
         const { collectionName, headers } = req.body;
-
+    
         if (!mongoose.models[collectionName]) {
             return res.status(404).json({ message: 'Model not found for collection' });
         }
-
+    
         const Model = mongoose.model(collectionName);
         const data = await Model.find({});
-        
+    
         const csvData = writeToCSV(data, headers);
+    
+        // Set the Content-Type header to indicate CSV data
+        res.set('Content-Type', 'text/csv');
+    
+        // Escape characters that have special meaning in HTML
+        const sanitizedCsvData = csvData.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/&/g, '&amp;');
+    
         res.attachment(`${collectionName}.csv`);
-        res.send(csvData);
+        res.send(sanitizedCsvData);
     } catch (error) {
+        // Handle errors appropriately
         console.error(error);
-        return res.status(500).json({ message: 'Internal Server Error' });
+        res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 
