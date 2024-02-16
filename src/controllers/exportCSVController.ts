@@ -45,11 +45,9 @@ router.post('/exportcsv', async (req: Request, res: Response) => {
         // Set the Content-Type header to indicate CSV data
         res.set('Content-Type', 'text/csv');
     
-        // Escape characters that have special meaning in HTML
-        const sanitizedCsvData = csvData.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/&/g, '&amp;');
-    
+        
         res.attachment(`${collectionName}.csv`);
-        res.send(sanitizedCsvData);
+        res.send(csvData);
     } catch (error) {
         // Handle errors appropriately
         console.error(error);
