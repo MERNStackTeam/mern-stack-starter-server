@@ -12,6 +12,7 @@ import roleRoutes from './src/routes/roleRoutes';
 import userAssignRoutes from './src/routes/userAssignRoutes';
 import authRoutes from './src/routes/authRoutes';
 import exportcsvRoutes from './src/routes/exportcsvRoutes';
+import rateLimit from 'express-rate-limit';
 import './infra/mongodb/db'; // Import MongoDB connection
 import './src/config/passport-config'; // Import your Passport.js configuration file
 import isAuthenticated from './middlewares/authMiddleware'; // Import the authentication middleware
@@ -45,6 +46,13 @@ app.use(cors({
 }));
 app.use(passport.initialize());
 
+// Define rate limiting options
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+    message: 'Too many requests from this IP, please try again later',
+  });
+
 // Routes
 app.get('/', (_req: Request, res: Response) => {
     res.send('Server is running!');
@@ -58,7 +66,7 @@ app.use('/api/todos', isAuthenticated, todoRoutes);
 app.use('/api/users', isAuthenticated, userRoutes);
 app.use('/api/roles', isAuthenticated, roleRoutes);
 app.use('/api/user-assign', isAuthenticated, userAssignRoutes);
-app.use('/api/export-csv', isAuthenticated, exportcsvRoutes);
+app.use('/api/export-csv',limiter, isAuthenticated, exportcsvRoutes);
 
 
 // Server start
