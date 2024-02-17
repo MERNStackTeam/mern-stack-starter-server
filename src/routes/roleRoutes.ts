@@ -13,9 +13,10 @@ const limiter = rateLimit({
   // Apply the rate limiter to all routes
 router.use(limiter);
 
-router.get('/roles', roleController.getAllRoles);
-router.post('/roles', roleController.createRoles);
-router.put('/roles/:id', roleController.updateRoles);
+router.get('/', roleController.getAllRoles);
+router.post('/createroles', roleController.createRoles);
+router.put('/updateroles/:id', roleController.updateRoles);
+router.delete('/deleteroles/:id', roleController.deleteRole);
 
 
 export default router;

@@ -1,8 +1,9 @@
 // authController.ts
-import express, { Request, Response } from 'express';
+import express, { Request, Response,NextFunction } from 'express';
 import passport from 'passport';
 import jwt, { VerifyErrors } from 'jsonwebtoken'; // Import VerifyErrors
 import bcrypt from 'bcrypt';
+import {errorHandler} from "../handlers/errorHandler";
 import User, { UserDocument } from '../models/User'; // Import your user model
 
 const router = express.Router();
@@ -77,5 +78,38 @@ router.post('/refresh-token', async (req: Request, res: Response) => {
         return res.json({ accessToken });
     });
 });
+
+router.post('/forgotpassword', async (req: Request, res: Response,next: NextFunction) => {
+    try {
+         const { username, password } = req.body;
+         // Validate username
+        if (!username) {
+            return res.status(400).json({ message: 'Username is required' });
+        }
+
+        // Validate password
+        if (!password) {
+            return res.status(400).json({ message: 'Password is required' });
+        }
+         const hashedPassword = await bcrypt.hash(password, 10);
+         console.log(hashedPassword)
+         // Update the user's password
+        const updatedUser = await User.findOneAndUpdate(
+            { username: { $eq: username } },
+             { $set: { password:hashedPassword, updated_at: Date.now() } },
+             { new: true }
+        );
+ 
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+         }
+ 
+         // Respond with the updated user
+         res.json(updatedUser);
+     } catch (err) {
+         // Handle other errors
+        errorHandler(err, req, res,next);
+     }
+ });
 
 export default router;

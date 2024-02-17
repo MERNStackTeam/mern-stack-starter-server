@@ -2,7 +2,7 @@
 import express from 'express';
 import rateLimit from 'express-rate-limit';
 
-import authController from '../controllers/authController';
+import exportCSVController from '../controllers/exportCSVController';
 
 const router = express.Router();
 
@@ -14,9 +14,11 @@ const limiter = rateLimit({
   // Apply the rate limiter to all routes
 router.use(limiter);
 
-router.post('/register', authController);
-router.post('/login', authController);
-router.post('/refresh-token', authController);
-router.post('/forgotpassword',authController);
+router.post('/exportcsv', exportCSVController);
+router.get('/getAllCollectionNames', exportCSVController);
+router.get('/getAllHeaders', exportCSVController);
+
+
+
 
 export default router;
