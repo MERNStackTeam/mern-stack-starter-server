@@ -18,6 +18,8 @@ router.post('/exportcsv', exportCSVController);
 router.get('/getAllCollectionNames', exportCSVController);
 router.get('/getAllHeaders', exportCSVController);
 
+router.post('/uploadcsv', exportCSVController);
+
 
 
 
