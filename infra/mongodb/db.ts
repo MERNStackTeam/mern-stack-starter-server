@@ -1,7 +1,9 @@
 // db.ts
 import mongoose from 'mongoose';
 
-mongoose.connect('mongodb://localhost:27017/mern-stack-server')
+//mongoose.connect('mongodb://localhost:27017/mern-stack-server')
+mongoose.connect('mongodb+srv://shilpa:9lCdA9w4aFHvgryM@cluster0.rzc6tjh.mongodb.net/?retryWrites=true&w=majority')
+
     .then(() => {
         console.log('Connected to MongoDB');
     })

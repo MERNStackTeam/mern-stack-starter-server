@@ -1,5 +1,8 @@
 import express, { Request, Response } from 'express';
 import mongoose from 'mongoose'; // Import mongoose
+
+import multer from 'multer';
+import csvParser from 'csv-parser';
 import fs from 'fs';
 import path from 'path';
 
@@ -96,4 +99,40 @@ router.get('/getAllHeaders', async (req: Request, res: Response) => {
         return res.status(500).json({ message: 'Internal Server Error' });
     }
 });
+
+
+
+
+// Multer configuration for file upload
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+// Route for uploading CSV and saving data into MongoDB
+router.post('/uploadcsv', upload.single('file'), async (req: Request, res: Response) => {
+    try {
+        // Check if file is uploaded
+        console.log(req)
+        if (!req.file) {
+            return res.status(400).json({ message: 'No file uploaded' });
+        }
+        // Read and parse CSV file
+        const data: any[] = [];
+        req.file.buffer
+            .toString()
+            .split('\n')
+            .forEach((line: string) => {
+                // Parse CSV line
+                const values = line.split(',');
+                // Assuming the CSV format matches the schema of the collection
+                
+            });
+
+        res.status(200).json({ message: 'CSV data uploaded successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+
 export default router;
